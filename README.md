@@ -6,7 +6,7 @@ This package provides Ely.by OAuth 2.0 support for the PHP League's
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Software License][ico-license]](LICENSE.md)
-[![Build Status](ico-build-status)](link-build-status)
+[![Build Status][ico-build-status]][link-build-status]
 
 ## Installation
 
