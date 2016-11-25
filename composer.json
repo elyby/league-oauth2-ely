@@ -1,0 +1,35 @@
+{
+    "name": "ely/oauth2-client",
+    "description": "Ely.by provider for league/oauth2-client",
+    "license": "MIT",
+    "keywords": ["authorization", "authentication", "client", "league", "oauth", "oauth2", "ely", "elyby"],
+    "homepage": "https://github.com/elyby/league-oauth2-ely",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Ely.by team",
+            "email": "team@ely.by"
+        },
+        {
+            "name": "ErickSkrauch",
+            "email": "erickskrauch@ely.by"
+        }
+    ],
+    "require": {
+        "league/oauth2-client": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.0",
+        "mockery/mockery": "~0.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ely\\OAuth2\\Client\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ely\\OAuth2\\Client\\Test\\": "tests/src/"
+        }
+    }
+}
