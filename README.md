@@ -3,6 +3,11 @@
 This package provides Ely.by OAuth 2.0 support for the PHP League's
 [OAuth 2.0 Client](https://github.com/thephpleague/oauth2-client).
 
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Total Downloads][ico-downloads]][link-downloads]
+[![Software License][ico-license]](LICENSE.md)
+[![Build Status](ico-build-status)](link-build-status)
+
 ## Installation
 
 To install, use composer:
@@ -142,4 +147,12 @@ This package was designed and developed within the [Ely.by](http://ely.by) proje
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
+[ico-version]: https://img.shields.io/packagist/v/ely/oauth2-client.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/ely/oauth2-client.svg?style=flat-square
+[ico-build-status]: https://img.shields.io/travis/elyby/league-oauth2-ely/master.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/ely/oauth2-client
 [link-contributors]: ../../contributors
+[link-downloads]: https://packagist.org/packages/ely/php-tempmailbuster
+[link-build-status]: https://travis-ci.org/elyby/league-oauth2-ely
