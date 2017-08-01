@@ -154,5 +154,5 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [link-packagist]: https://packagist.org/packages/ely/oauth2-client
 [link-contributors]: ../../contributors
-[link-downloads]: https://packagist.org/packages/ely/php-tempmailbuster
+[link-downloads]: https://packagist.org/packages/ely/oauth2-client/stats
 [link-build-status]: https://travis-ci.org/elyby/league-oauth2-ely
