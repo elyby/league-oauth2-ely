@@ -3,4 +3,6 @@
 /vendor
 composer.phar
 composer.lock
+.php_cs.cache
+.php_cs
 .DS_Store

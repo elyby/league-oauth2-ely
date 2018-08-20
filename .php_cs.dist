@@ -1,0 +1,8 @@
+<?php
+$finder = \PhpCsFixer\Finder::create()
+    ->in(__DIR__);
+
+return \Ely\CS\Config::create([
+    'visibility_required' => ['property', 'method'],
+    'ternary_to_null_coalescing' => false,
+])->setFinder($finder);

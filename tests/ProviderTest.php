@@ -8,15 +8,14 @@ use League\OAuth2\Client\Token\AccessToken;
 use Mockery as m;
 use Psr\Http\Message\ResponseInterface;
 
-class ProviderTest extends \PHPUnit_Framework_TestCase
-{
+class ProviderTest extends \PHPUnit_Framework_TestCase {
+
     /**
      * @var Provider
      */
     protected $provider;
 
-    protected function setUp()
-    {
+    protected function setUp() {
         $this->provider = new Provider([
             'clientId' => 'mock_client_id',
             'clientSecret' => 'mock_secret',
@@ -24,21 +23,18 @@ class ProviderTest extends \PHPUnit_Framework_TestCase
         ]);
     }
 
-    public function tearDown()
-    {
+    public function tearDown() {
         m::close();
         parent::tearDown();
     }
 
-    public function testGetResourceOwnerDetailsUrl()
-    {
+    public function testGetResourceOwnerDetailsUrl() {
         $url = $this->provider->getResourceOwnerDetailsUrl(new AccessToken(['access_token' => 'mock_token']));
         $uri = parse_url($url);
         $this->assertEquals('/api/account/v1/info', $uri['path']);
     }
 
-    public function testGetAuthorizationUrl()
-    {
+    public function testGetAuthorizationUrl() {
         $url = $this->provider->getAuthorizationUrl();
         $uri = parse_url($url);
         parse_str($uri['query'], $query);
@@ -53,8 +49,7 @@ class ProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($this->provider->getState());
     }
 
-    public function testScopes()
-    {
+    public function testScopes() {
         $options = ['scope' => ['minecraft_server_session', 'account_info']];
 
         $url = $this->provider->getAuthorizationUrl($options);
@@ -62,8 +57,7 @@ class ProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertContains(urlencode(implode(',', $options['scope'])), $url);
     }
 
-    public function testGetBaseAccessTokenUrl()
-    {
+    public function testGetBaseAccessTokenUrl() {
         $params = [];
 
         $url = $this->provider->getBaseAccessTokenUrl($params);
@@ -72,8 +66,7 @@ class ProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('/api/oauth2/v1/token', $uri['path']);
     }
 
-    public function testGetAccessToken()
-    {
+    public function testGetAccessToken() {
         /** @var m\Mock|ResponseInterface $response */
         $response = m::mock(ResponseInterface::class);
         $response->shouldReceive('getBody')->andReturn($this->getAccessTokenResponse());
@@ -96,11 +89,10 @@ class ProviderTest extends \PHPUnit_Framework_TestCase
      * @expectedException \Ely\OAuth2\Client\Exception\IdentityProviderException
      * @expectedExceptionMessageRegExp /Exception message .+/
      */
-    public function testExceptionThrownWhenErrorObjectReceived()
-    {
+    public function testExceptionThrownWhenErrorObjectReceived() {
         $name = 'Error ' . uniqid();
         $message = 'Exception message ' . uniqid();
-        $status = rand(400, 600);
+        $status = mt_rand(400, 600);
         /** @var m\Mock|ResponseInterface $postResponse */
         $postResponse = m::mock(ResponseInterface::class);
         $postResponse->shouldReceive('getBody')->andReturn(json_encode([
@@ -125,8 +117,7 @@ class ProviderTest extends \PHPUnit_Framework_TestCase
      * @expectedException \Ely\OAuth2\Client\Exception\IdentityProviderException
      * @expectedExceptionMessage Bad Gateway
      */
-    public function testExceptionThrownOnIncorrectContentType()
-    {
+    public function testExceptionThrownOnIncorrectContentType() {
         /** @var m\Mock|ResponseInterface $postResponse */
         $postResponse = m::mock(ResponseInterface::class);
         $postResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'text/html; charset=UTF-8']);
@@ -143,8 +134,7 @@ class ProviderTest extends \PHPUnit_Framework_TestCase
         $this->provider->getAccessToken('authorization_code', ['code' => 'mock_authorization_code']);
     }
 
-    public function testGetResourceOwner()
-    {
+    public function testGetResourceOwner() {
         /** @var m\Mock|ResponseInterface $postResponse */
         $postResponse = m::mock(ResponseInterface::class);
         $postResponse->shouldReceive('getBody')->andReturn($this->getAccessTokenResponse());
@@ -162,8 +152,8 @@ class ProviderTest extends \PHPUnit_Framework_TestCase
         /** @var m\Mock|ClientInterface $client */
         $client = m::mock(ClientInterface::class);
         $client->shouldReceive('send')
-               ->times(2)
-               ->andReturn($postResponse, $userResponse);
+            ->times(2)
+            ->andReturn($postResponse, $userResponse);
         $this->provider->setHttpClient($client);
 
         $token = $this->provider->getAccessToken('authorization_code', ['code' => 'mock_authorization_code']);
@@ -172,12 +162,12 @@ class ProviderTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(ResourceOwner::class, $user);
     }
 
-    private function getAccessTokenResponse()
-    {
+    private function getAccessTokenResponse() {
         return json_encode([
             'access_token' => 'mock_access_token',
             'token_type' => 'bearer',
             'expires_in' => 3600,
         ]);
     }
+
 }

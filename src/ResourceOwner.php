@@ -4,8 +4,8 @@ namespace Ely\OAuth2\Client;
 use DateTime;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
-class ResourceOwner implements ResourceOwnerInterface
-{
+class ResourceOwner implements ResourceOwnerInterface {
+
     /**
      * Raw response
      *
@@ -18,8 +18,7 @@ class ResourceOwner implements ResourceOwnerInterface
      *
      * @param array $response
      */
-    public function __construct(array $response = [])
-    {
+    public function __construct(array $response = []) {
         $this->response = $response;
     }
 
@@ -28,8 +27,7 @@ class ResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->response['id'];
     }
 
@@ -38,8 +36,7 @@ class ResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getUuid()
-    {
+    public function getUuid() {
         return $this->response['uuid'];
     }
 
@@ -48,8 +45,7 @@ class ResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getUsername()
-    {
+    public function getUsername() {
         return $this->response['username'];
     }
 
@@ -59,8 +55,7 @@ class ResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return isset($this->response['email']) ? $this->response['email'] : null;
     }
 
@@ -69,8 +64,7 @@ class ResourceOwner implements ResourceOwnerInterface
      *
      * @return DateTime
      */
-    public function getRegisteredAt()
-    {
+    public function getRegisteredAt() {
         return new DateTime('@' . $this->response['registeredAt']);
     }
 
@@ -79,8 +73,7 @@ class ResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getProfileLink()
-    {
+    public function getProfileLink() {
         return $this->response['profileLink'];
     }
 
@@ -90,8 +83,7 @@ class ResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getPreferredLanguage()
-    {
+    public function getPreferredLanguage() {
         return $this->response['preferredLanguage'];
     }
 
@@ -101,8 +93,7 @@ class ResourceOwner implements ResourceOwnerInterface
      *
      * @return string
      */
-    public function getSkinUrl()
-    {
+    public function getSkinUrl() {
         return "http://skinsystem.ely.by/skins/{$this->getUsername()}.png";
     }
 
@@ -111,10 +102,10 @@ class ResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
-    {
+    public function toArray() {
         return array_merge($this->response, [
-            'skinUrl'   => $this->getSkinUrl(),
+            'skinUrl' => $this->getSkinUrl(),
         ]);
     }
+
 }

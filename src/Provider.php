@@ -10,8 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * @method ResourceOwner getResourceOwner(AccessToken $token)
  */
-class Provider extends AbstractProvider
-{
+class Provider extends AbstractProvider {
     use BearerAuthorizationTrait;
 
     const REDIRECT_URI_STATIC_PAGE = 'static_page';
@@ -20,32 +19,28 @@ class Provider extends AbstractProvider
     /**
      * @inheritdoc
      */
-    public function getBaseAuthorizationUrl()
-    {
+    public function getBaseAuthorizationUrl() {
         return 'https://account.ely.by/oauth2/v1/' . $this->clientId;
     }
 
     /**
      * @inheritdoc
      */
-    public function getBaseAccessTokenUrl(array $params)
-    {
+    public function getBaseAccessTokenUrl(array $params) {
         return 'https://account.ely.by/api/oauth2/v1/token';
     }
 
     /**
      * @inheritdoc
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
-    {
+    public function getResourceOwnerDetailsUrl(AccessToken $token) {
         return 'https://account.ely.by/api/account/v1/info';
     }
 
     /**
      * @inheritdoc
      */
-    protected function getAuthorizationParameters(array $options)
-    {
+    protected function getAuthorizationParameters(array $options) {
         $params = parent::getAuthorizationParameters($options);
         // client_id applied to base url
         // approval_prompt not supported
@@ -57,8 +52,7 @@ class Provider extends AbstractProvider
     /**
      * @inheritdoc
      */
-    protected function getDefaultScopes()
-    {
+    protected function getDefaultScopes() {
         return [
             'account_info',
         ];
@@ -67,8 +61,7 @@ class Provider extends AbstractProvider
     /**
      * @inheritdoc
      */
-    protected function checkResponse(ResponseInterface $response, $data)
-    {
+    protected function checkResponse(ResponseInterface $response, $data) {
         $statusCode = $response->getStatusCode();
         if ($statusCode !== 200) {
             $message = isset($data['message']) ? $data['message'] : $response->getReasonPhrase();
@@ -83,8 +76,8 @@ class Provider extends AbstractProvider
      * @param AccessToken $token
      * @return ResourceOwner
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
-    {
+    protected function createResourceOwner(array $response, AccessToken $token) {
         return new ResourceOwner($response);
     }
+
 }
