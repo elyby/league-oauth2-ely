@@ -121,6 +121,28 @@ class ProviderTest extends \PHPUnit_Framework_TestCase
         $this->provider->getAccessToken('authorization_code', ['code' => 'mock_authorization_code']);
     }
 
+    /**
+     * @expectedException \Ely\OAuth2\Client\Exception\IdentityProviderException
+     * @expectedExceptionMessage Bad Gateway
+     */
+    public function testExceptionThrownOnIncorrectContentType()
+    {
+        /** @var m\Mock|ResponseInterface $postResponse */
+        $postResponse = m::mock(ResponseInterface::class);
+        $postResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'text/html; charset=UTF-8']);
+        $postResponse->shouldReceive('getBody')->andReturn('html content');
+        $postResponse->shouldReceive('getStatusCode')->andReturn(502);
+        $postResponse->shouldReceive('getReasonPhrase')->andReturn('Bad Gateway');
+
+        /** @var m\Mock|ClientInterface $client */
+        $client = m::mock(ClientInterface::class);
+        $client->shouldReceive('send')
+            ->times(1)
+            ->andReturn($postResponse);
+        $this->provider->setHttpClient($client);
+        $this->provider->getAccessToken('authorization_code', ['code' => 'mock_authorization_code']);
+    }
+
     public function testGetResourceOwner()
     {
         /** @var m\Mock|ResponseInterface $postResponse */

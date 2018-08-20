@@ -70,8 +70,9 @@ class Provider extends AbstractProvider
     protected function checkResponse(ResponseInterface $response, $data)
     {
         $statusCode = $response->getStatusCode();
-        if ($statusCode !== 200 || isset($data['message'])) {
-            throw new IdentityProviderException($data['message'] ?: $response->getReasonPhrase(), $statusCode, $response);
+        if ($statusCode !== 200) {
+            $message = isset($data['message']) ? $data['message'] : $response->getReasonPhrase();
+            throw new IdentityProviderException($message, $statusCode, $response);
         }
     }
 
