@@ -5,4 +5,5 @@ $finder = \PhpCsFixer\Finder::create()
 return \Ely\CS\Config::create([
     'visibility_required' => ['property', 'method'],
     'ternary_to_null_coalescing' => false,
+    'php_unit_expectation' => false,
 ])->setFinder($finder);
