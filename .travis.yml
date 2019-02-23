@@ -5,6 +5,7 @@ php:
   - 7.0
   - 7.1
   - 7.2
+  - 7.3
   - nightly
 
 cache:
@@ -21,6 +22,7 @@ env:
 
 before_script:
   - composer global show hirak/prestissimo -q || travis_retry composer global require $DEFAULT_COMPOSER_FLAGS hirak/prestissimo
+  - '[ "${TRAVIS_PHP_VERSION:0:1}" == "5" ] && composer remove ely/php-code-style'
   - travis_retry composer update --no-interaction --prefer-source $PREFER_LOWEST
   - travis_retry phpenv rehash
 
