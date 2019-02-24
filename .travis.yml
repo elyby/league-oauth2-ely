@@ -23,6 +23,7 @@ env:
 
 before_script:
   - composer global show hirak/prestissimo -q || travis_retry composer global require $DEFAULT_COMPOSER_FLAGS hirak/prestissimo
+  - rm composer.lock
   - '[ "${TRAVIS_PHP_VERSION:0:1}" == "5" ] && composer remove --dev --no-progress ely/php-code-style || true'
   - travis_retry composer update --prefer-source $PREFER_LOWEST
   - travis_retry phpenv rehash
