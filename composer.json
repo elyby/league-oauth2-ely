@@ -20,7 +20,7 @@
     },
     "require-dev": {
         "ext-json": "*",
-        "phpunit/phpunit": "^4.8",
+        "phpunit/phpunit": "^4.8.35",
         "ely/php-code-style": "^0.3.0"
     },
     "autoload": {
