@@ -15,15 +15,16 @@ cache:
 
 env:
   global:
-    - DEFAULT_COMPOSER_FLAGS="--optimize-autoloader --no-interaction --no-progress"
+    - DEFAULT_COMPOSER_FLAGS="--optimize-autoloader --no-progress"
+    - COMPOSER_NO_INTERACTION=1
   matrix:
     - PREFER_LOWEST="--prefer-lowest"
     - PREFER_LOWEST=""
 
 before_script:
   - composer global show hirak/prestissimo -q || travis_retry composer global require $DEFAULT_COMPOSER_FLAGS hirak/prestissimo
-  - '[ "${TRAVIS_PHP_VERSION:0:1}" == "5" ] && composer remove --no-interaction ely/php-code-style || true'
-  - travis_retry composer update --no-interaction --prefer-source $PREFER_LOWEST
+  - '[ "${TRAVIS_PHP_VERSION:0:1}" == "5" ] && composer remove --ignore-platform-reqs --no-progress ely/php-code-style || true'
+  - travis_retry composer update --prefer-source $PREFER_LOWEST
   - travis_retry phpenv rehash
 
 stages:
